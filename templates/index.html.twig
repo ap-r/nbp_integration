@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Aktualne kursy{% endblock %}
+{% block body %}
+    <div class="container">
+
+        {% for message in app.flashes('notice') %}
+            <div class="flash-notice alert-danger alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nazwa</th>
+                    <th>Kod waluty</th>
+                    <th>Aktualny kurs względem PLN</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if currencies is not empty %}
+                    {% for currency in currencies %}
+                        <tr>
+                            <td>{{ currency.name }}</td>
+                            <td>{{ currency.currencyCode }}</td>
+                            <td>{{ currency.exchangeRate|number_format(2, ',', ' ') }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
